@@ -19,7 +19,7 @@ db=SQLAlchemy(app)
 line_bot_api=LineBotApi('yxtGR78w8l+EZb8GT4Vn1jfVWsV1kS856OtUfSbT+TUTtplgpb2ISmhXabv+6l3A74Q60c+XTEoyXQ6LvGUy813C/TY72WeL920T8qIJbG97CKQX4tEyicuwCq0fKA/KB88qcwXk6GvQhTUlidSbNwdB04t89/1O/w1cDnyilFU=')
 handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
 liffid1 = '1655833971-8JP5EZR1'
-# liffid2 = '1655833971-eVBEndlD'
+liffid2 = '1655833971-eVBEndlD'
 
 to = "Uc7074d464065cd10bada3cdbf399693a"
 
@@ -51,9 +51,9 @@ to = "Uc7074d464065cd10bada3cdbf399693a"
 @app.route('/page1')
 def page():
 	return render_template('member.html', liffid = liffid1)
-# @app.route('/page2')
-# def page():
-# 	return render_template('reschedule.html', liffid = liffid2)
+@app.route('/page2')
+def page():
+	return render_template('reschedule.html', liffid = liffid2)
 
 @app.route('/callback',methods=['POST'])
 def callback():
