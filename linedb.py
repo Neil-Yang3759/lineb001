@@ -18,7 +18,8 @@ db=SQLAlchemy(app)
 
 line_bot_api=LineBotApi('yxtGR78w8l+EZb8GT4Vn1jfVWsV1kS856OtUfSbT+TUTtplgpb2ISmhXabv+6l3A74Q60c+XTEoyXQ6LvGUy813C/TY72WeL920T8qIJbG97CKQX4tEyicuwCq0fKA/KB88qcwXk6GvQhTUlidSbNwdB04t89/1O/w1cDnyilFU=')
 handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
-liffid = '1655833971-8JP5EZR1'
+liffid1 = '1655833971-8JP5EZR1'
+liffid2 = '1655833971-eVBEndlD'
 
 to = "Uc7074d464065cd10bada3cdbf399693a"
 
@@ -47,9 +48,12 @@ to = "Uc7074d464065cd10bada3cdbf399693a"
 
 
         
-@app.route('/page')
+@app.route('/page1')
 def page():
-	return render_template('lineform.html', liffid = liffid)
+	return render_template('member.html', liffid = liffid1)
+@app.route('/page2')
+def page():
+	return render_template('reschedule.html', liffid = liffid2)
 
 @app.route('/callback',methods=['POST'])
 def callback():
@@ -68,6 +72,8 @@ def handle_message(event):
         sendFlex(event)
     elif mtext[:3] == '###' and len(mtext) > 3:
         manageForm(event, mtext)
+    elif mtext[:4] == '####' and len(mtext) > 4:
+        manageForm(event, mtext)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
 
@@ -81,7 +87,7 @@ def handle_postback(event):
     # 下一頁
     if data == "action=next":
         # 設定個別用戶選單
-        line_bot_api.link_rich_menu_to_user(userId, 'richmenu-2dc60350ba51c73d36beb7f397bed412')
+        line_bot_api.link_rich_menu_to_user(userId, 'richmenu-f3278452270e0ca1c986d2dcdb33aba4')
     # 上一頁
     elif data == "action=prev":
         # 移除個別用戶選單
