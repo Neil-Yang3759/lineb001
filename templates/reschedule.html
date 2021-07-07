@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>中華大學調課功能</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row" style="margin: 10px">
+        <div class="col-12" style="margin: 10px">
+            
+            <label>時段</label>
+            <input type="datetime-local" id="betime" value="" class="form-control" />
+            <br />
+<!--
+            <label>課號</label>
+            <input type="text" id="cid" class="form-control" />
+            or
+            <br />
+            <br />
+            <label>課名</label>
+            <input type="text" id="cname" class="form-control" />
+            <br />
+-->
+            <br />
+            <label>調課日期</label>
+            <input type="datetime-local" id="edtime" value="" class="form-control" />
+            <br />
+
+            
+            <button class="btn btn-success btn-block" id="reschedule">調課</button>
+<!--            <button class="btn btn-success btn-block" id="update">修改</button>-->
+            <button class="btn btn-success btn-block" id="cancel">停課</button>
+<!--            <button class="btn btn-success btn-block" id="query">查詢</button>-->
+        </div>
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+	<script>
+        function initializeLiff(myLiffId) {
+            liff.init({liffId: myLiffId });
+        }
+
+		function pushMsg(smb,betime,edtime) {
+            var msg = "###";  //回傳訊息字串
+            switch(smb){
+                case 'r':
+                    if (betime == '' || edtime == '') {  //資料檢查
+                        alert('請輸入原本時段及跳課時段！');
+                        return;}
+                    msg = msg + 'r' + "/";
+                    break;
+                case 'c':
+                    if (betime == '') {  //資料檢查
+                        alert('請輸入原本時段！');
+                        return;}
+                    msg = msg + 'c' + "/";
+                    break;
+            }
+			msg = msg + betime + "/";
+			msg = msg + edtime + "/";
+			liff.sendMessages([  //推播訊息
+				{ type: 'text',text: msg}
+			])
+				.then(() => {
+					liff.closeWindow();  //關閉視窗
+				});
+		}
+
+		$(document).ready(function () {
+			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
+			$('#reschedule').click(function (e) {  //按下調課鈕
+				pushMsg('r', $('#betime').val(), $('#edtime').val());
+			});
+            $('#cancel').click(function (e) {  //按下停課鈕
+				pushMsg('c', $('#betime').val(), $('#edtime').val());
+			});
+		});
+	</script>
+</body>
+</html>

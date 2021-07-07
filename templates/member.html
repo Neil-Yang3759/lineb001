@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>中華大學學生資料</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row" style="margin: 10px">
+        <div class="col-12" style="margin: 10px">
+            <label>學/工 號</label>
+            <input type="text" id="sid" class="form-control" />
+            <br />
+            <label>姓名</label>
+            <input type="text" id="name" class="form-control" />
+            <br />
+            <label>年級</label>
+            <select id="grade" class="form-control">
+                <option selected></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+            </select>
+            <br />
+            <label>系所</label>
+            <select id="major" class="form-control">
+                <option selected></option>
+                <option>CS</option>
+                <option>ARHY</option>
+                <option>MATH</option>
+                <option>Geo</option>
+                <option>Ocean</option>
+            </select>
+            <br />
+
+            <label>生日</label>
+            <input type="date" id="birthday" value="" class="form-control" />
+            <br />
+
+            
+            <button class="btn btn-success btn-block" id="insert">新增</button>
+<!--            <button class="btn btn-success btn-block" id="update">修改</button>-->
+            <button class="btn btn-success btn-block" id="delete">刪除</button>
+<!--            <button class="btn btn-success btn-block" id="query">查詢</button>-->
+        </div>
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+	<script>
+        function initializeLiff(myLiffId) {
+            liff.init({liffId: myLiffId });
+        }
+
+		function pushMsg(smb,sid,name,grade,major) {
+            var msg = "###";  //回傳訊息字串
+            switch(smb){
+                case 'i':
+                    if (sid == '' || name == '') {  //資料檢查
+                        alert('請至少輸入學/工 號、姓名！');
+                        return;}
+                    msg = msg + 'i' + "/";
+                    break;
+                case 'd':
+                    if (sid == '') {  //資料檢查
+                        alert('請輸入學號！');
+                        return;}
+                    msg = msg + 'd' + "/";
+                    break;
+            }
+			msg = msg + sid + "/";
+			msg = msg + name + "/";
+			msg = msg + grade + "/";
+            msg = msg + major;
+			liff.sendMessages([  //推播訊息
+				{ type: 'text',text: msg}
+			])
+				.then(() => {
+					liff.closeWindow();  //關閉視窗
+				});
+		}
+
+		$(document).ready(function () {
+			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
+			$('#insert').click(function (e) {  //按下確定鈕
+				pushMsg('i', $('#sid').val(), $('#name').val(),
+                $('#grade').val(),
+                $('#major').val());
+			});
+            $('#delete').click(function (e) {  //按下確定鈕
+				pushMsg('d', $('#sid').val(), $('#name').val(),
+                $('#grade').val(),
+                $('#major').val());
+			});
+		});
+	</script>
+</body>
+</html>
