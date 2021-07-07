@@ -87,7 +87,7 @@ def handle_postback(event):
     # 下一頁
     if data == "action=next":
         # 設定個別用戶選單
-        line_bot_api.link_rich_menu_to_user(userId, 'richmenu-f3278452270e0ca1c986d2dcdb33aba4')
+        line_bot_api.link_rich_menu_to_user(userId, 'richmenu-e7a1c53f956a2996d9c4d448d3f54023')
     # 上一頁
     elif data == "action=prev":
         # 移除個別用戶選單
