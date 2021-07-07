@@ -48,7 +48,7 @@
             switch(smb){
                 case 'r':
                     if (betime == '' || edtime == '') {  //資料檢查
-                        alert('請輸入原本時段及跳課時段！');
+                        alert('請輸入原本時段及調課時段！');
                         return;}
                     msg = msg + 'r' + "/";
                     break;
@@ -59,8 +59,8 @@
                     msg = msg + 'c' + "/";
                     break;
             }
-			msg = msg + betime + "/";
-			msg = msg + edtime + "/";
+			msg = msg + betime;
+			msg = msg + edtime;
 			liff.sendMessages([  //推播訊息
 				{ type: 'text',text: msg}
 			])
