@@ -19,41 +19,20 @@ db=SQLAlchemy(app)
 line_bot_api=LineBotApi('yxtGR78w8l+EZb8GT4Vn1jfVWsV1kS856OtUfSbT+TUTtplgpb2ISmhXabv+6l3A74Q60c+XTEoyXQ6LvGUy813C/TY72WeL920T8qIJbG97CKQX4tEyicuwCq0fKA/KB88qcwXk6GvQhTUlidSbNwdB04t89/1O/w1cDnyilFU=')
 handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
 liffid1 = '1655833971-8JP5EZR1'
-# liffid2 = '1655833971-eVBEndlD'
+liffid2 = '1655833971-eVBEndlD'
 
 to = "Uc7074d464065cd10bada3cdbf399693a"
 
-
-# target_name = "Pixel 4"
-# target_address = None
-# lookup_class = False,lookup_names=True
-# results=bluetooth.discover_devices(duration=10,lookup_names=True)
-# vuln_devices=[]
-# for addr,name in results:
-#     vuln_devices.append((addr,name))
-#     # print(vuln_devices)
-#     if target_name == name:
-#         print(target_name)
-#         target_address = addr    
-#         break
-
-# if target_address is not None:
-    
-#     line_bot_api.push_message(to, TextSendMessage(text = '你好呀!')),
-#     print(target_address)
-        
-# else:
-#     print("error")    
 
 
 
         
 @app.route('/page1')
-def page():
+def page1():
 	return render_template('member.html', liffid = liffid1)
-# @app.route('/page2')
-# def page():
-# 	return render_template('reschedule.html', liffid = liffid2)
+@app.route('/page2')
+def page2():
+	return render_template('reschedule.html', liffid = liffid2)
 
 @app.route('/callback',methods=['POST'])
 def callback():
@@ -68,7 +47,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     mtext = event.message.text
-    if mtext == '@rollcall':
+    if mtext == '動作 1':
         sendFlex(event)
     elif mtext[:3] == '###' and len(mtext) > 3:
         manageForm(event, mtext)
@@ -88,8 +67,10 @@ def handle_postback(event):
     if data == "action=next":
         # 設定個別用戶選單
         line_bot_api.link_rich_menu_to_user(userId, 'richmenu-f3278452270e0ca1c986d2dcdb33aba4')
+    elif data == "action=next2":
+        line_bot_api.link_rich_menu_to_user(userId, 'richmenu-b587ba7dcda53980766b97e2bfaadd11')
     # 上一頁
-    elif data == "action=prev":
+    elif data == "action=prev" or data == "action=prev2":
         # 移除個別用戶選單
         line_bot_api.unlink_rich_menu_from_user(userId)
 
