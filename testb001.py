@@ -70,13 +70,13 @@ def handle_postback(event):
     elif data == "action=next2":
         line_bot_api.link_rich_menu_to_user(userId, 'richmenu-b587ba7dcda53980766b97e2bfaadd11')
     # 上一頁
-    elif data == "action=prev2" or data == "action=prev":
+    elif data == "action=prev":
         line_bot_api.unlink_rich_menu_from_user(userId)
     # elif data == "action=prev":
     #     # 移除個別用戶選單
     #     line_bot_api.link_rich_menu_from_user(userId,'richmenu-688c0086e723359b2c81d48441b96eb4')
-    # elif data == "action=prev2":
-    #     line_bot_api.link_rich_menu_from_user(userId,'richmenu-10f7a761acff4f3de43996a9d3946f31')
+    elif data == "action=prev2":
+        line_bot_api.link_rich_menu_from_user(userId,'richmenu-10f7a761acff4f3de43996a9d3946f31')
 
 def sendFlex(event):
 
