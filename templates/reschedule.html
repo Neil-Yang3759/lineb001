@@ -11,8 +11,32 @@
     <div class="row" style="margin: 10px">
         <div class="col-12" style="margin: 10px">
             
-            <label>時段</label>
-            <input type="datetime-local" id="betime" value="" class="form-control" />
+            <label>日期</label>
+            <input type="date" id="bedate" value="" class="form-control" />
+            <label>開始節數</label>
+            <select id="be_start_time" class="form-control">
+                <option selected>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
+            <label>結束節數</label>
+            <select id="be_end_time" class="form-control">
+                <option selected>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
             <br />
 <!--
             <label>課號</label>
@@ -26,14 +50,43 @@
 -->
             <br />
             <label>調課日期</label>
-            <input type="datetime-local" id="edtime" value="" class="form-control" />
-            <br />
-
-            
+            <input type="date" id="eddate" value="" class="form-control" />
+            <label>開始節數</label>
+            <select id="ed_start_time" class="form-control">
+                <option selected>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
+            <label>結束節數</label>
+            <select id="ed_end_time" class="form-control">
+                <option
+                selected>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
+            <label>教室</label>
+            <select id="ed_classroom" class="form-control">
+                <option>E212</option>
+                <option>E407</option>
+                <option>E409</option>
+                <option>E410</option>
+            </select>
+            <br/>
             <button class="btn btn-success btn-block" id="reschedule">調課</button>
-<!--            <button class="btn btn-success btn-block" id="update">修改</button>-->
             <button class="btn btn-success btn-block" id="cancel">停課</button>
-<!--            <button class="btn btn-success btn-block" id="query">查詢</button>-->
+
         </div>
     </div>
 
