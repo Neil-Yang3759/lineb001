@@ -47,8 +47,8 @@ def handle_message(event):
         sendFlex(event)
     elif mtext[:3] == '###' and len(mtext) > 3:
         member(event, mtext)
-    elif mtext[:4] == '####' and len(mtext) > 4:
-        reschedule(event, mtext)
+    # elif mtext[:4] == '####' and len(mtext) > 4:
+    #     reschedule(event, mtext)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
 
