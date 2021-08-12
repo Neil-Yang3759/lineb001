@@ -86,6 +86,7 @@ def member(event, mtext):
         if flist[0] == 'i':
             sql_cmd="insert into student (sid,name,major,grade) values ('"+flist[1]+"','"+flist[2]+"','"+flist[4]+"','"+flist[3]+"');"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=flist[1]+flist[2]+flist[4]+flist[3]))
         # elif flist[0] == 'u':
         #     sql_cmd="update students set sname='"+flist[2]+"',sgrade="+flist[3]+",smajor='"+flist[4]+"',sdate=current_date,stime=localtime(0) where sid = ('"+flist[1]+"');"
         #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='update complete！'))
