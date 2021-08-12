@@ -84,7 +84,7 @@ def member(event, mtext):
         flist = mtext[3:].split('/')
         # insert into students(sid,sname,sgrade,smajor,sdate,stime) values('B10702004','yang',3,'CS',current_date,localtime(0));
         if flist[0] == 'i':
-            sql_cmd="insert into student (sid,name,major,grade) values ('"+flist[1]+"','"+flist[2]+"','"+flist[4]+"','"+flist[3]+"');"
+            sql_cmd="insert into student (id,name,major,grade) values ('"+flist[1]+"','"+flist[2]+"','"+flist[4]+"','"+flist[3]+"');"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=flist[1]+flist[2]+flist[4]+flist[3]))
         # elif flist[0] == 'u':
