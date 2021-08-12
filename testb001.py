@@ -90,7 +90,7 @@ def member(event, mtext):
         #     sql_cmd="update students set sname='"+flist[2]+"',sgrade="+flist[3]+",smajor='"+flist[4]+"',sdate=current_date,stime=localtime(0) where sid = ('"+flist[1]+"');"
         #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='update complete！'))
         elif flist[0] == 'd':
-            sql_cmd="delete from student where sid =  '"+flist[1]+"';"
+            sql_cmd="delete from student where id =  '"+flist[1]+"';"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
         # elif flist[0] == 'q':
         #     sql_cmd="select * from students where sid = '"+flist[1]+"';"
