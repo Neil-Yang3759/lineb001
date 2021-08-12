@@ -51,7 +51,7 @@ def handle_message(event):
         student(event, mtext)
     elif mtext[:4] == '####' and len(mtext) > 4:
         reschedule(event, mtext)
-    elif mtext[:4] == '##$' and len(mtext) > 3:
+    elif mtext[:3] == '##$' and len(mtext) > 3:
         teacher(event, mtext)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
