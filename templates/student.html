@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>中華大學學生資料</title>
+    <title>學生資料</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -10,23 +10,11 @@
 <body>
     <div class="row" style="margin: 10px">
         <div class="col-12" style="margin: 10px">
-            <label>學/工 號</label>
+            <label>學號</label>
             <input type="text" id="sid" class="form-control" />
             <br />
             <label>姓名</label>
             <input type="text" id="name" class="form-control" />
-            <br />
-            <label>年級</label>
-            <select id="grade" class="form-control">
-                <option selected></option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-            </select>
             <br />
             <label>系所</label>
             <select id="major" class="form-control">
@@ -38,9 +26,16 @@
                 <option>Ocean</option>
             </select>
             <br />
-
-            <!-- <label>生日</label>
-            <input type="date" id="birthday" value="" class="form-control" /> -->
+            <label>年級</label>
+            <select id="grade" class="form-control">
+                <option selected></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <br />
             <br />
 
             <button class="btn btn-success btn-block" id="insert">新增</button>
@@ -59,7 +54,7 @@
             switch(smb){
                 case 'i':
                     if (sid == '' || name == '') {  //資料檢查
-                        alert('請至少輸入學/工 號、姓名！');
+                        alert('請至少輸入學號、姓名！');
                         return;}
                     msg = msg + 'i' + "/";
                     break;
@@ -72,8 +67,8 @@
             }
 			msg = msg + sid + "/";
 			msg = msg + name + "/";
-			msg = msg + grade + "/";
-            msg = msg + major;
+			msg = msg + major + "/";
+            msg = msg + grade ;
 			liff.sendMessages([  //推播訊息
 				{ type: 'text',text: msg}
 			])
