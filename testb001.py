@@ -105,10 +105,10 @@ def reschedule(event, mtext):
         flist = mtext[3:].split('/')
         # insert into students(sid,sname,sgrade,smajor,sdate,stime) values('B10702004','yang',3,'CS',current_date,localtime(0));
         if flist[0] == 'i':
-            sql_cmd="insert into students (sid,sname,sgrade,smajor) values ('"+flist[1]+"','"+flist[2]+"','"+flist[3]+"','"+flist[4]+"');"
+            sql_cmd="insert into student (sid,name,grade,major) values ('"+flist[1]+"','"+flist[2]+"','"+flist[4]+"','"+flist[3]+"');"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
         elif flist[0] == 'd':
-            sql_cmd="delete from students where sid =  '"+flist[1]+"';"
+            sql_cmd="delete from student where sid =  '"+flist[1]+"';"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
             
         db.engine.execute(sql_cmd)
