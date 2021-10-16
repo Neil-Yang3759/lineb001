@@ -16,8 +16,8 @@ app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xwvwqwtfmgxaxm:ed1e4d1cca4493d17f313adeb3013395e2e35d7daf4a9ca264dfcf1ea7da4272@ec2-174-129-225-160.compute-1.amazonaws.com:5432/dfhrokp4l321dc'
 db=SQLAlchemy(app)
 
-line_bot_api=LineBotApi('yxtGR78w8l+EZb8GT4Vn1jfVWsV1kS856OtUfSbT+TUTtplgpb2ISmhXabv+6l3A74Q60c+XTEoyXQ6LvGUy813C/TY72WeL920T8qIJbG97CKQX4tEyicuwCq0fKA/KB88qcwXk6GvQhTUlidSbNwdB04t89/1O/w1cDnyilFU=')
-handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
+line_bot_api=LineBotApi('mQXBdpy2wiCQVUxQlEQySiv6RAYJdpxgpyDGmus06yL2yj2DTfUGflfjYR4RRobeJ5EFoI7v2aWLDU7OVpU7mgoOywZswmZTiqFOZV4Ttb0Dr6PP1xb4UtHuQqjekMIscE/W9MlR8nwl3IOhJzVBYQdB04t89/1O/w1cDnyilFU=')
+handler=WebhookHandler('d560ad94729a14fb6bda0e47ddf67219')
 liffid1 = '1655833971-8JP5EZR1'
 liffid2 = '1655833971-eVBEndlD'
 liffid3 = '1655833971-10qjl0re'
