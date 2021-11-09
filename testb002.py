@@ -4,7 +4,7 @@ Created on Mon Apr  5 15:43:39 2021
 
 @author: cloud
 """
-from flask import request,abort,render_template,Flask
+from flask import request,abort,render_template,Flask,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from linebot.exceptions import InvalidSignatureError
 from linebot import LineBotApi,WebhookHandler
@@ -16,13 +16,13 @@ app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://xwvwqwtfmgxaxm:ed1e4d1cca4493d17f313adeb3013395e2e35d7daf4a9ca264dfcf1ea7da4272@ec2-174-129-225-160.compute-1.amazonaws.com:5432/dfhrokp4l321dc'
 db=SQLAlchemy(app)
 
-line_bot_api=LineBotApi('mQXBdpy2wiCQVUxQlEQySiv6RAYJdpxgpyDGmus06yL2yj2DTfUGflfjYR4RRobeJ5EFoI7v2aWLDU7OVpU7mgoOywZswmZTiqFOZV4Ttb0Dr6PP1xb4UtHuQqjekMIscE/W9MlR8nwl3IOhJzVBYQdB04t89/1O/w1cDnyilFU=')
-handler=WebhookHandler('d560ad94729a14fb6bda0e47ddf67219')
+line_bot_api=LineBotApi('yxtGR78w8l+EZb8GT4Vn1jfVWsV1kS856OtUfSbT+TUTtplgpb2ISmhXabv+6l3A74Q60c+XTEoyXQ6LvGUy813C/TY72WeL920T8qIJbG97CKQX4tEyicuwCq0fKA/KB88qcwXk6GvQhTUlidSbNwdB04t89/1O/w1cDnyilFU=')
+handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
 liffid1 = '1655833971-8JP5EZR1'
 liffid2 = '1655833971-eVBEndlD'
 liffid3 = '1655833971-10qjl0re'
 
-        
+
 @app.route('/page1')
 def page1():
 	return render_template('student.html', liffid = liffid1)
@@ -32,6 +32,51 @@ def page2():
 @app.route('/page3')
 def page3():
 	return render_template('teacher.html', liffid = liffid3)
+
+@app.route('/post_student',methods=['POST'])
+def post_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "insert into student values('"+id+"','"+name+"','"+major+"','"+grade+"');"
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success'))
+
+@app.route('/update_student',methods=['POST'])
+def update_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "update student set name='"+name+"', major='"+major+"', grade='"+grade+"' where id='"+id+"'";
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success'))
+
+@app.route('/post_teacher',methods=['POST'])
+def post_teacher():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "insert into teacher values('"+id+"','"+name+"','"+major+"','"+grade+"' );"
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success'))
+
+@app.route('/update_teacher',methods=['POST'])
+def update_teacher():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "update teacher set name='"+name+"', major='"+major+"', grade='"+grade+"'  where id='"+id+"'";
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success'))
+
+@app.route('/success')
+def success():
+    return render_template('success.html')
+
 @app.route('/callback',methods=['POST'])
 def callback():
     signature=request.headers['X-Line_Signature']
@@ -41,7 +86,8 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-    
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     mtext = event.message.text
@@ -119,6 +165,9 @@ def reschedule(event, mtext):
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
+
+
+
 if __name__=='__main__':
     app.run()
-    
+
