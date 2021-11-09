@@ -41,7 +41,7 @@ def post_student():
     grade = request.form['grade']
     strSQl= "insert into student values('"+id+"','"+name+"','"+major+"','"+grade+"');"
     db.engine.execute(strSQl) 
-    return redirect(url_for('success.html'))
+    return redirect(url_for('success'))
 
 @app.route('/update_student',methods=['POST'])
 def update_student():
@@ -51,7 +51,7 @@ def update_student():
     grade = request.form['grade']
     strSQl= "update student set name='"+name+"', major='"+major+"', grade='"+grade+"' where id='"+id+"'";
     db.engine.execute(strSQl) 
-    return redirect(url_for('success.html'))
+    return redirect(url_for('success'))
 
 @app.route('/post_teacher',methods=['POST'])
 def post_teacher():
@@ -61,7 +61,7 @@ def post_teacher():
     grade = request.form['grade']
     strSQl= "insert into teacher values('"+id+"','"+name+"','"+major+"','"+grade+"' );"
     db.engine.execute(strSQl) 
-    return redirect(url_for('success.html'))
+    return redirect(url_for('success'))
 
 @app.route('/update_teacher',methods=['POST'])
 def update_teacher():
@@ -71,7 +71,7 @@ def update_teacher():
     grade = request.form['grade']
     strSQl= "update teacher set name='"+name+"', major='"+major+"', grade='"+grade+"'  where id='"+id+"'";
     db.engine.execute(strSQl) 
-    return redirect(url_for('success.html'))
+    return redirect(url_for('success'))
 
 @app.route('/success')
 def success():
