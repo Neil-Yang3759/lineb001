@@ -10,9 +10,9 @@
 <body>
     <div class="row" style="margin: 10px">
 
-    <form method="post" action="/post_student">
-        <label>學號</label>
-        <input type="text" id="id" name="id" class="form-control" placeholder="B1012003" />
+    <form method="post" action="/post_teacher">
+        <label>工號</label>
+        <input type="text" id="id" name="id" class="form-control" placeholder="A12345" />
         <label>姓名</label>
         <input type="text" id="name" name="name" class="form-control" placeholder="王大明"/>
             
@@ -25,22 +25,10 @@
             <option>Geo</option>
             <option>Ocean</option>
             </select>
-            
-        <label>年級</label>
-        <select id="grade" name="grade" class="form-control" >
-            <option selected></option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
         </select>
         <br />
         <button class="btn btn-primary" type="submit">Submit</button>
-        <button class="btn btn-success" type="submit" formaction="/update_student">Update</button>
-        <!-- <input type="submit" name="action" value="Insert" />
-        <input type="submit" name="action" value="Update" /> -->
-        <!-- <button class="btn btn-primary" id="insert">新增</button> -->
+        <button class="btn btn-success" type="submit" formaction="/update_teacher">Update</button>
     </form>
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -90,6 +78,6 @@
     //             $('#major').val());
 	// 		});
 	// 	});
-	// </script>
+	</script>
 </body>
 </html>

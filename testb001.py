@@ -4,7 +4,7 @@ Created on Mon Apr  5 15:43:39 2021
 
 @author: cloud
 """
-from flask import request,abort,render_template,Flask,redirect
+from flask import request,abort,render_template,Flask,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from linebot.exceptions import InvalidSignatureError
 from linebot import LineBotApi,WebhookHandler
@@ -22,7 +22,7 @@ liffid1 = '1655833971-8JP5EZR1'
 liffid2 = '1655833971-eVBEndlD'
 liffid3 = '1655833971-10qjl0re'
 
-        
+
 @app.route('/page1')
 def page1():
 	return render_template('student.html', liffid = liffid1)
@@ -32,6 +32,51 @@ def page2():
 @app.route('/page3')
 def page3():
 	return render_template('student.html', liffid = liffid3)
+
+@app.route('/post_student',methods=['POST'])
+def post_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "insert into student values('"+id+"','"+name+"','"+major+"','"+grade+"');"
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success.html'))
+
+@app.route('/update_student',methods=['POST'])
+def update_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "update student set name='"+name+"', major='"+major+"', grade='"+grade+"' where id='"+id+"'";
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success.html'))
+
+@app.route('/post_teacher',methods=['POST'])
+def post_teacher():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "insert into teacher values('"+id+"','"+name+"','"+major+"','"+grade+"' );"
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success.html'))
+
+@app.route('/update_teacher',methods=['POST'])
+def update_teacher():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "update teacher set name='"+name+"', major='"+major+"', grade='"+grade+"'  where id='"+id+"'";
+    db.engine.execute(strSQl) 
+    return redirect(url_for('success.html'))
+
+@app.route('/success')
+def success():
+    return render_template('success.html')
+
 @app.route('/callback',methods=['POST'])
 def callback():
     signature=request.headers['X-Line_Signature']
@@ -120,28 +165,9 @@ def reschedule(event, mtext):
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
-@app.route('/post_student',methods=['POST'])
-def post_student():
-    id = request.form['id']
-    name = request.form['name']  
-    major = request.form['major']
-    grade = request.form['grade']
-    strSQl= "insert into student values('"+id+"','"+name+"','"+major+"','"+grade+"');"
-    db.engine.execute(strSQl) 
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
-    return redirect('/student.html')
 
-@app.route('/update_student',methods=['POST'])
-def update_student():
-    id = request.form['id']
-    name = request.form['name']  
-    major = request.form['major']
-    grade = request.form['grade']
-    strSQl= "update student set name='"+name+"', major='"+major+"', grade='"+grade+"' where id='"+id+"'";
-    db.engine.execute(strSQl) 
 
-    return redirect('/teacher.html')
-    
+
 if __name__=='__main__':
     app.run()
-    
+
