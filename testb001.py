@@ -4,7 +4,7 @@ Created on Mon Apr  5 15:43:39 2021
 
 @author: cloud
 """
-from flask import request,abort,render_template,Flask
+from flask import request,abort,render_template,Flask,redirect
 from flask_sqlalchemy import SQLAlchemy
 from linebot.exceptions import InvalidSignatureError
 from linebot import LineBotApi,WebhookHandler
@@ -31,7 +31,7 @@ def page2():
 	return render_template('reschedule.html', liffid = liffid2)
 @app.route('/page3')
 def page3():
-	return render_template('teacher.html', liffid = liffid3)
+	return render_template('student.html', liffid = liffid3)
 @app.route('/callback',methods=['POST'])
 def callback():
     signature=request.headers['X-Line_Signature']
@@ -41,7 +41,8 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-    
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     mtext = event.message.text
@@ -119,6 +120,28 @@ def reschedule(event, mtext):
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
+@app.route('/post_student',methods=['POST'])
+def post_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "insert into student values('"+id+"','"+name+"','"+major+"','"+grade+"');"
+    db.engine.execute(strSQl) 
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
+    return redirect('/student.html')
+
+@app.route('/update_student',methods=['POST'])
+def update_student():
+    id = request.form['id']
+    name = request.form['name']  
+    major = request.form['major']
+    grade = request.form['grade']
+    strSQl= "update student set name='"+name+"', major='"+major+"', grade='"+grade+"' where id='"+id+"'";
+    db.engine.execute(strSQl) 
+
+    return redirect('/teacher.html')
+    
 if __name__=='__main__':
     app.run()
     
