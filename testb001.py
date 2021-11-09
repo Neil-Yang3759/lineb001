@@ -31,7 +31,7 @@ def page2():
 	return render_template('reschedule.html', liffid = liffid2)
 @app.route('/page3')
 def page3():
-	return render_template('student.html', liffid = liffid3)
+	return render_template('teacher.html', liffid = liffid3)
 
 @app.route('/post_student',methods=['POST'])
 def post_student():
