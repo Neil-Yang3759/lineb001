@@ -65,9 +65,9 @@
             liff.init({liffId: myLiffId });
         }
 
-		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,BeClassroom,EdDate,EdStartTime,EdEndtime,EdClassroom) {
+		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,BeClassroom,EdDate,EdStartTime,EdStartTime,EdClassroom) {
             var msg = "####";  //回傳訊息字串
-            if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || EdDate == '' || EdStartTime == '' || EdEndtime == '' || EdClassroom == '') {  //資料檢查
+            if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || EdDate == '' || EdStartTime == '' || EdStartTime == '' || EdClassroom == '') {  //資料檢查
                 alert('請輸入原本日期、時段及調課後日期、時段！');
                 return;}
             msg = msg + 'r' + "/";
@@ -109,7 +109,7 @@
 		$(document).ready(function () {
 			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
 			$('#reschedule').click(function (e) {  //按下調課鈕
-				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdEndtime').val(),  $('#EdClassroom').val());
+				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdStartTime').val(),  $('#EdClassroom').val());
 			});
             $('#cancel').click(function (e) {  //按下停課鈕
 				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val(), $('#BeClassroom').val());
