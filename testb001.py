@@ -93,15 +93,14 @@ def handle_message(event):
     mtext = event.message.text
     if mtext == '動作 1':
         sendFlex(event)
-    elif mtext[:3] == '###' and len(mtext) > 3:
-        student(event, mtext)
+    # elif mtext[:3] == '###' and len(mtext) > 3:
+    #     reschedule(event, mtext)
     elif mtext[:4] == '####' and len(mtext) > 4:
         reschedule(event, mtext)
-    elif mtext[:3] == '##$' and len(mtext) > 3:
-        teacher(event, mtext)
+    # elif mtext[:3] == '##$' and len(mtext) > 3:
+    #     teacher(event, mtext)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
-
 
 
 def sendFlex(event):
@@ -109,65 +108,24 @@ def sendFlex(event):
     userId = event.source.user_id
     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=userId+': '+event.message.text))
 
-def student(event, mtext):
-    try:
-        flist = mtext[3:].split('/')
-        # insert into students(sid,sname,sgrade,smajor,sdate,stime) values('B10702004','yang',3,'CS',current_date,localtime(0));
-        if flist[0] == 'i':
-            sql_cmd="insert into student (id,name,major,grade) values ('"+flist[1]+"','"+flist[2]+"','"+flist[3]+"','"+flist[4]+"');"
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
-        # elif flist[0] == 'u':
-        #     sql_cmd="update students set sname='"+flist[2]+"',sgrade="+flist[3]+",smajor='"+flist[4]+"',sdate=current_date,stime=localtime(0) where sid = ('"+flist[1]+"');"
-        #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='update complete！'))
-        elif flist[0] == 'd':
-            sql_cmd="delete from student where id =  '"+flist[1]+"';"
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
-        # elif flist[0] == 'q':
-        #     sql_cmd="select * from students where sid = '"+flist[1]+"';"
-        #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='search complete！'))
-            
-        db.engine.execute(sql_cmd)
-    except:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
-
-def teacher(event, mtext):
-    try:
-        flist = mtext[3:].split('/')
-        if flist[0] == 'i':
-            sql_cmd="insert into teacher (id,name,major,grade) values ('"+flist[1]+"','"+flist[2]+"','"+flist[3]+"','"+flist[4]+"');"
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='insert complete!'))
-        elif flist[0] == 'd':
-            sql_cmd="delete from teacher where id =  '"+flist[1]+"';"
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
-
-        db.engine.execute(sql_cmd)
-    except:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
 def reschedule(event, mtext):
     try:
         flist = mtext[4:].split('/')
-        # insert into students(sid,sname,sgrade,smajor,sdate,stime) values('B10702004','yang',3,'CS',current_date,localtime(0));
         if flist[0] == 'r':
-            sql_cmd="update from student where id =  '"+flist[1]+"';"
+            sql_cmd="delete from "'"public"'"."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"', start_slot = "+flist[2]+", end_slot = "+flist[3]+";"
+            sql_cmd+="insert into "'"public"'"."+'"'+flist[8]+'"'+" values (date =  '"+flist[5]+"', start_slot = "+flist[6]+", end_slot = "+flist[7]+");"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='reschedule complete！'))
-        # elif flist[0] == 'u':
-        #     sql_cmd="update students set sname='"+flist[2]+"',sgrade="+flist[3]+",smajor='"+flist[4]+"',sdate=current_date,stime=localtime(0) where sid = ('"+flist[1]+"');"
-        #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='update complete！'))
+        
         elif flist[0] == 'c':
-            sql_cmd="delete from student where id =  '"+flist[1]+"';"
+            sql_cmd="delete from "'"public"'"."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"', start_slot = "+flist[2]+", end_slot = "+flist[3]+";"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
-        # elif flist[0] == 'q':
-        #     sql_cmd="select * from students where sid = '"+flist[1]+"';"
-        #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='search complete！'))
-            
+                
         db.engine.execute(sql_cmd)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
-
 
 
 
 if __name__=='__main__':
     app.run()
-

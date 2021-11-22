@@ -4,5 +4,4 @@ line-bot-sdk
 flask_sqlalchemy
 psycopg2
 psycopg2-binary
-getmac
 APScheduler

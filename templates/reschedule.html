@@ -16,67 +16,36 @@
             <label>開始節數</label>
             <select id="BeStartTime" class="form-control">
                 <option selected>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
+                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
             </select>
             <label>結束節數</label>
             <select id="BeEndTime" class="form-control">
                 <option selected>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
+                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+            <label>原教室</label>
+            <select id="BeClassroom" class="form-control">
+                <option>E212</option>
+                <option>E407</option>
+                <option>E409</option>
+                <option>E410</option>
             </select>
             <br />
-<!--
-            <label>課號</label>
-            <input type="text" id="cid" class="form-control" />
-            or
-            <br />
-            <br />
-            <label>課名</label>
-            <input type="text" id="cname" class="form-control" />
-            <br />
--->
             <br />
             <label>調課日期</label>
             <input type="date" id="EdDate" value="" class="form-control" />
             <label>開始節數</label>
             <select id="EdStartTime" class="form-control">
                 <option selected>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
+                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
             </select>
             <label>結束節數</label>
             <select id="EdEndTime" class="form-control">
                 <option
                 selected>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
+                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
             </select>
-            <label>教室</label>
+            <label>調課教室</label>
             <select id="EdClassroom" class="form-control">
                 <option>E212</option>
                 <option>E407</option>
@@ -96,7 +65,7 @@
             liff.init({liffId: myLiffId });
         }
 
-		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,EdDate,EdStartTime,EdEndtime,EdClassroom) {
+		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,BeClassroom,EdDate,EdStartTime,EdEndtime,EdClassroom) {
             var msg = "####";  //回傳訊息字串
             if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || EdDate == '' || EdStartTime == '' || EdEndtime == '' || EdClassroom == '') {  //資料檢查
                 alert('請輸入原本日期、時段及調課後日期、時段！');
@@ -105,6 +74,7 @@
             msg = msg + BeDate + "/";
 			msg = msg + BeStartTime + "/";        
             msg = msg + BeEndTime + "/";
+            msg = msg + BeClassroom + "/";
             msg = msg + EdDate + "/";
             msg = msg + EdStartTime + "/";
             msg = msg + EdEndtime + "/";
@@ -117,7 +87,7 @@
 					liff.closeWindow();  //關閉視窗
 				});
         }
-        function PushCancel(smb,BeDate,BeStartTime,BeEndTime) {
+        function PushCancel(smb,BeDate,BeStartTime,BeEndTime,BeClassroom) {
             var msg = "####";  //回傳訊息字串
             if (BeDate == '' || BeStartTime == '' || BeEndTime == '') {  //資料檢查
                 alert('請輸入原本日期、時段！');
@@ -125,7 +95,8 @@
             msg = msg + 'c' + "/";
             msg = msg + BeDate + "/";
 			msg = msg + BeStartTime + "/";
-            msg = msg + BeEndTime;
+            msg = msg + BeEndTime + "/";
+            msg = msg + BeClassroom;
             
 			liff.sendMessages([  //推播訊息
 				{ type: 'text',text: msg}
@@ -138,10 +109,10 @@
 		$(document).ready(function () {
 			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
 			$('#reschedule').click(function (e) {  //按下調課鈕
-				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdEndtime').val(),  $('#EdClassroom').val());
+				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdEndtime').val(),  $('#EdClassroom').val());
 			});
             $('#cancel').click(function (e) {  //按下停課鈕
-				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val());
+				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val(), $('#BeClassroom').val());
 			});
 		});
 	</script>
