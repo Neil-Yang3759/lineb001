@@ -108,7 +108,7 @@
 		$(document).ready(function () {
 			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
 			$('#reschedule').click(function (e) {  //按下調課鈕
-				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdStartTime').val(),  $('#EdClassroom').val());
+				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdEndTime').val(),  $('#EdClassroom').val());
 			});
             $('#cancel').click(function (e) {  //按下停課鈕
 				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val(), $('#BeClassroom').val());
