@@ -114,14 +114,15 @@ def reschedule(event, mtext):
         flist = mtext[4:].split('/')
         if flist[0] == 'r':
             sql_cmd="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_slot = "+flist[2]+" and end_slot = "+flist[3]+";"
-            sql_cmd+="insert into public."+'"'+flist[8]+'"'+" (date,start_slot,end_slot) values ('"+flist[5]+"', "+flist[6]+", "+flist[7]+");"
+            sql_cmd2="insert into public."+'"'+flist[8]+'"'+" (date,start_slot,end_slot) values ('"+flist[5]+"', "+flist[6]+", "+flist[7]+");"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='reschedule complete！'))
-        
+            db.engine.execute(sql_cmd)
+            db.engine.execute(sql_cmd2)
         elif flist[0] == 'c':
             sql_cmd="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_slot = "+flist[2]+" and end_slot = "+flist[3]+";"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
                 
-        db.engine.execute(sql_cmd)
+            db.engine.execute(sql_cmd)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
