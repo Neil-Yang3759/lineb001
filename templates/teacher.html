@@ -18,8 +18,7 @@
             
         <label>系所</label>
         <select id="major" name="major" class="form-control" >
-            <option selected></option>
-            <option>CS</option>
+            <option selected>CS</option>
             <option>ARHY</option>
             <option>MATH</option>
             <option>Geo</option>
@@ -28,16 +27,15 @@
         </select>
         <label>年資</label>
         <select id="grade" name="grade" class="form-control" >
-            <option selected></option>
-            <option>1</option>
+            <option selected>1</option>
             <option>2</option>
             <option>3</option>
             <option>4</option>
             <option>5</option>
         </select>
         <br />
-        <button class="btn btn-primary" type="submit">Submit</button>
-        <button class="btn btn-success" type="submit" formaction="/update_teacher">Update</button>
+        <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+        <button class="btn btn-success" id="update_teacher" type="submit" formaction="/update_teacher">Update</button>
     </form>
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>

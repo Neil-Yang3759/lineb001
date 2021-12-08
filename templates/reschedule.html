@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- <link href="./reschedule.css" rel="stylesheet" type="text/css"> -->
 </head>
-<body>
+<body>  
     <div class="row" style="margin: 10px">
         <div class="col-12" style="margin: 10px">
             
@@ -15,20 +17,20 @@
             <input type="date" id="BeDate" value="" class="form-control" />
             <label>開始節數</label>
             <select id="BeStartTime" class="form-control">
-                <option selected>1</option>
-                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+                <option selected>1 : 8:30~9:20</option>
+                <option>2 : 9:25~10:15</option><option>3 : 10:25~11:15</option><option>4 : 11:20~12:10</option><option>5 : 13:10~14:00</option><option>6 : 14:10~15:00</option><option>7 : 15:10~16:00</option><option>8 : 16:10~17:00</option><option>9 : 17:05~17:55</option>
             </select>
             <label>結束節數</label>
             <select id="BeEndTime" class="form-control">
-                <option selected>1</option>
-                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+                <option selected>1 : 8:30~9:20</option>
+                <option>2 : 9:25~10:15</option><option>3 : 10:25~11:15</option><option>4 : 11:20~12:10</option><option>5 : 13:10~14:00</option><option>6 : 14:10~15:00</option><option>7 : 15:10~16:00</option><option>8 : 16:10~17:00</option><option>9 : 17:05~17:55</option>
             </select>
             <label>原教室</label>
             <select id="BeClassroom" class="form-control">
-                <option>E212</option>
+                <option>E406</option>
                 <option>E407</option>
+                <option>E408</option>
                 <option>E409</option>
-                <option>E410</option>
             </select>
             <br />
             <br />
@@ -36,20 +38,20 @@
             <input type="date" id="EdDate" value="" class="form-control" />
             <label>開始節數</label>
             <select id="EdStartTime" class="form-control">
-                <option selected>1</option>
-                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+                <option selected>1 : 8:30~9:20</option>
+                <option>2 : 9:25~10:15</option><option>3 : 10:25~11:15</option><option>4 : 11:20~12:10</option><option>5 : 13:10~14:00</option><option>6 : 14:10~15:00</option><option>7 : 15:10~16:00</option><option>8 : 16:10~17:00</option><option>9 : 17:05~17:55</option>
             </select>
             <label>結束節數</label>
             <select id="EdEndTime" class="form-control">
-                <option selected>1</option>
-                <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+                <option selected>1 : 8:30~9:20</option>
+                <option>2 : 9:25~10:15</option><option>3 : 10:25~11:15</option><option>4 : 11:20~12:10</option><option>5 : 13:10~14:00</option><option>6 : 14:10~15:00</option><option>7 : 15:10~16:00</option><option>8 : 16:10~17:00</option><option>9 : 17:05~17:55</option>
             </select>
             <label>調課教室</label>
             <select id="EdClassroom" class="form-control">
-                <option>E212</option>
+                <option>E406</option>
                 <option>E407</option>
+                <option>E408</option>
                 <option>E409</option>
-                <option>E410</option>
             </select>
             <br/>
             <button class="btn btn-success btn-block" id="reschedule">調課</button>
@@ -64,16 +66,16 @@
             liff.init({liffId: myLiffId });
         }
 
-		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,BeClassroom,EdDate,EdStartTime,EdEndTime,EdClassroom) {
-            var msg = "####";  //回傳訊息字串
-            if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || BeClassroom == '' || EdDate == '' || EdStartTime == '' || EdEndTime == '' || EdClassroom == '') {  //資料檢查
-                alert('請輸入日期、時段、教室！');
-                return;}
+		function PushReschedule(smb,BeDate,BeStartTime,BeEndTime,EdDate,EdStartTime,EdEndTime,EdClassroom) {
+            var msg = "###";  //回傳訊息字串
+            if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || EdDate == '' || EdStartTime == '' || EdEndTime == '' || EdClassroom == '') {  //資料檢查
+                alert('請輸入原本日期、時段及調課後日期、時段！');
+                return;
+            }
             msg = msg + 'r' + "/";
             msg = msg + BeDate + "/";
 			msg = msg + BeStartTime + "/";        
             msg = msg + BeEndTime + "/";
-            msg = msg + BeClassroom + "/";
             msg = msg + EdDate + "/";
             msg = msg + EdStartTime + "/";
             msg = msg + EdEndTime + "/";
@@ -86,16 +88,15 @@
 					liff.closeWindow();  //關閉視窗
 				});
         }
-        function PushCancel(smb,BeDate,BeStartTime,BeEndTime,BeClassroom) {
+        function PushCancel(smb,BeDate,BeStartTime,BeEndTime) {
             var msg = "####";  //回傳訊息字串
-            if (BeDate == '' || BeStartTime == '' || BeEndTime == '' || BeClassroom == '') {  //資料檢查
-                alert('請輸入原本日期、時段、教室！');
+            if (BeDate == '' || BeStartTime == '' || BeEndTime == '') {  //資料檢查
+                alert('請輸入原本日期、時段！');
                 return;}
             msg = msg + 'c' + "/";
             msg = msg + BeDate + "/";
 			msg = msg + BeStartTime + "/";
-            msg = msg + BeEndTime + "/";
-            msg = msg + BeClassroom;
+            msg = msg + BeEndTime;
             
 			liff.sendMessages([  //推播訊息
 				{ type: 'text',text: msg}
@@ -104,14 +105,50 @@
 					liff.closeWindow();  //關閉視窗
 				});
 		}
-
+        function switch_time_slot(time){    //轉換節數為時間
+            let t = time;
+            switch(time){
+                case 1:
+                    t = '8:30';
+                    break;
+                case 2:
+                    t = '9:25';
+                    break;
+                case 3:
+                    t = '10:25';
+                    break;
+                case 4:
+                    t = '11:20';
+                    break;
+                case 5:
+                    t = '13:10';
+                    break;
+                case 6:
+                    t = '14:10';
+                    break
+                case 7:
+                    t = '15:10';
+                    break;
+                case 8:
+                    t = '16:10';
+                    break;
+                case 9:
+                    t = '17:05';
+                    break;
+            }
+        }
 		$(document).ready(function () {
 			initializeLiff('{{ liffid }}');  //接收傳遞的 liffid 參數
 			$('#reschedule').click(function (e) {  //按下調課鈕
-				PushReschedule('r', $('#BeDate').val(), $('#BeStartTime').val(),  $('#BeEndTime').val(), $('#BeClassroom').val(),  $('#EdDate').val(),  $('#EdStartTime').val(),  $('#EdEndTime').val(),  $('#EdClassroom').val());
+                var BS = $('#BeStartTime').val().split(" ",1);
+                var BE = $('#BeEndTime').val().split(" ",1);
+                var ES = $('#EdStartTime').val().split(" ",1);
+                var EE = $('#EdEndTime').val().split(" ",1);
+                
+				PushReschedule('r', $('#BeDate').val(), switch_time_slot(BS),  switch_time_slot(BE),  $('#EdDate').val(),  switch_time_slot(ES), switch_time_slot(EE),  $('#EdClassroom').val());
 			});
             $('#cancel').click(function (e) {  //按下停課鈕
-				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val(), $('#BeClassroom').val());
+				PushCancel('c', $('#BeDate').val(), $('#BeStartTime').val(), $('#BeEndTime').val());
 			});
 		});
 	</script>
