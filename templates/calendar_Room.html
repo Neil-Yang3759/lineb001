@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script> 
+	
+</head>
+<body>
+	<div class="container">
+	<div id="calendar"></div>
+	</div>
+	<script>
+		let calendarEl = document.getElementById('calendar');
+		let calendar = new FullCalendar.Calendar(calendarEl,{
+			initialView: 'dayGridMonth',
+			height:600,
+			// initialDate: new Date(2021, 8, 1),
+			headerToolbar:{
+				left:'prev,next today',
+				center:'title',
+				right:'dayGridMonth,timeGridWeek,timeGrid'
+			},
+			events:[
+				{%for Room in Rooms%}
+				{
+					title:'{{Room.name}} {{Room.teacher}}',
+					start:'{{Room.date}}T{{Room.start_time}}',
+					end:'{{Room.date}}T{{Room.end_time}}',
+					editable:false,
+				},
+				{%endfor%}
+			]
+		});
+		calendar.render();
+	</script>
+</body>
+</html>

@@ -21,7 +21,7 @@ handler=WebhookHandler('c05f2a87ac67ce93bd8fc407dbeb43a1')
 liffid1 = '1655833971-8JP5EZR1'
 liffid2 = '1655833971-eVBEndlD'
 liffid3 = '1655833971-10qjl0re'
-
+liffid4 = '1655833971-MOY5bOva'
 
 @app.route('/page1')
 def page1():
@@ -32,8 +32,11 @@ def page2():
 @app.route('/page3')
 def page3():
 	return render_template('teacher.html', liffid = liffid3)
+@app.route('/page4')
+def page4():
+	return render_template('query.html', liffid = liffid4)
 
-@app.route('/post_student',methods=['POST'])
+@app.route('/post_student',methods=['POST'])            #post_student profile
 def post_student():
     id = request.form['id']
     name = request.form['name']  
@@ -43,7 +46,7 @@ def post_student():
     db.engine.execute(strSQl) 
     return redirect(url_for('success'))
 
-@app.route('/update_student',methods=['POST'])
+@app.route('/update_student',methods=['POST'])          #update_student profile
 def update_student():
     id = request.form['id']
     name = request.form['name']  
@@ -53,7 +56,7 @@ def update_student():
     db.engine.execute(strSQl) 
     return redirect(url_for('success'))
 
-@app.route('/post_teacher',methods=['POST'])
+@app.route('/post_teacher',methods=['POST'])            #post_teacher profile
 def post_teacher():
     id = request.form['id']
     name = request.form['name']  
@@ -63,7 +66,7 @@ def post_teacher():
     db.engine.execute(strSQl) 
     return redirect(url_for('success'))
 
-@app.route('/update_teacher',methods=['POST'])
+@app.route('/update_teacher',methods=['POST'])          #update_teacher profile
 def update_teacher():
     id = request.form['id']
     name = request.form['name']  
@@ -73,7 +76,7 @@ def update_teacher():
     db.engine.execute(strSQl) 
     return redirect(url_for('success'))
 
-@app.route('/success')
+@app.route('/success')                  #after you enter your profile correctly 
 def success():
     return render_template('success.html')
 
@@ -109,23 +112,55 @@ def sendFlex(event):
     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=userId+': '+event.message.text))
 
 
-def reschedule(event, mtext):
+def reschedule(event, mtext):               #reschedule and cancel class
     try:
         flist = mtext[4:].split('/')
         if flist[0] == 'r':
-            sql_cmd="insert into public."+'"'+flist[8]+'"'+" select date,id,teacher,start_slot,end_slot,tlid from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_slot = "+flist[2]+" and end_slot = "+flist[3]+";"
-            sql_cmd+="update public."+'"'+flist[8]+'"'+" set date = '"+flist[5]+"', start_slot = "+flist[6]+", end_slot = "+flist[7]+";"
-            sql_cmd+="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_slot = "+flist[2]+" and end_slot = "+flist[3]+";"
+            sql_cmd="insert into public."+'"'+flist[8]+'"'+" select date,id,teacher,start_time,end_time,tlid from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_time = "+flist[2]+" and end_time = "+flist[3]+";"
+            sql_cmd+="update public."+'"'+flist[8]+'"'+" set date = '"+flist[5]+"', start_time = "+flist[6]+", end_time = "+flist[7]+";"
+            sql_cmd+="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_time = "+flist[2]+" and end_time = "+flist[3]+";"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='reschedule complete！'))
         elif flist[0] == 'c':
-            sql_cmd="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_slot = "+flist[2]+" and end_slot = "+flist[3]+";"
+            sql_cmd="delete from public."+'"'+flist[4]+'"'+" where date =  '"+flist[1]+"' and start_time = "+flist[2]+" and end_time = "+flist[3]+";"
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='delete complete！'))
 
         db.engine.execute(sql_cmd)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
+@app.route('/calendar_Room', methods=['GET','POST'])
+def calendar_Room():
+    class Room(db.Model):
+        __tablename__ = request.form['room']
+        __table_args__ = {'extend_existing': True}
+        date = db.Column(db.Date,primary_key=True)
+        id = db.Column(db.String)
+        name = db.Column(db.String)
+        teacher = db.Column(db.String)
+        start_time = db.Column(db.Time,primary_key=True)
+        end_time = db.Column(db.Time,primary_key=True)
+        tlid = db.Column(db.String)
+        room = db.Column(db.String)
 
+    Rooms = Room.query.all()
+    return render_template('calendar_Room.html',Rooms=Rooms)
+
+@app.route('/calendar_Teacher', methods=['GET','POST'])
+def calendar_Teacher():
+    class Teacher_course(db.Model):
+        __tablename__ = request.form['teacher']+"_course"
+        __table_args__ = {'extend_existing': True}
+        date = db.Column(db.Date,primary_key=True)
+        id = db.Column(db.String)
+        name = db.Column(db.String)
+        teacher = db.Column(db.String)
+        start_time = db.Column(db.Time,primary_key=True)
+        end_time = db.Column(db.Time,primary_key=True)
+        tlid = db.Column(db.String)
+        room = db.Column(db.String)
+
+    Teacher = Teacher_course.query.all()
+    return render_template('calendar_Teacher.html',Teacher=Teacher)
 
 if __name__=='__main__':
     app.run()

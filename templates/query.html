@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.3/css/dx.light.css" />
-        <!-- <link rel="stylesheet" href="index.css"> -->
-        <script src="data.js"></script>
-        <script src="https://cdn3.devexpress.com/jslib/21.2.3/js/dx.all.js"></script>
-        <script src="query.js"></script>
-    </head>
-    <body class="dx-viewport">
-        
-        <div id="scheduler"></div>
-        
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<title>ClassRoom Schedule</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<!-- <link rel="shortcut icon" href="#"/> -->
+	</head>
+	<body>
+		<form  method="post" action="{{url_for('calendar_Room')}}">
+			<label for="room">Select ClassRoom:</label>
+			<select  name="room" class="form-control" >
+                <option selected></option>
+                <option>E406</option>
+                <option>E407</option>
+                <option>E408</option>
+                <option>E409</option>
+            </select>
+            <button type="submit" class="btn btn-default">submit</button>
+        </form>
+        <br/>
+        <form  method="post" action="{{url_for('calendar_Teacher')}}">
+			<label for="teacher">What's your name:</label>
+			<select  name="teacher" class="form-control" >
+                <option selected></option>
+                <option>趙敏芝</option>
+                <option>吳林全</option>
+                <option>歐陽雯</option>
+                <option>戴群鋒</option>
+                <option>吳文舜</option>
+            </select>
+            <button type="submit" class="btn btn-default">submit</button>
+        </form>
+	</body>
 </html>
